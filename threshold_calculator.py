@@ -1,5 +1,5 @@
-
 import csv
+
 
 def break_apart_the_date_time(date_time):
     '''
@@ -103,12 +103,11 @@ def pivot_data(data):
     return [[data[row][col] for row in range(len(data))] for col in range(len(data[0]))]
 
 
-if __name__ == "__main__":
+def call(csvFile):
     #  This if statement will only run if you 'run' this .py file
     #  It won't run if you import this .py file to another (or just copy and paste the function)
-
-    should_i_print_everything = True
-    desired_data, column_names, timestamps = trim_data("mom_sad1.csv", 10, 10)
+    should_i_print_everything = False  # Change back to true later if you want to debug
+    desired_data, column_names, timestamps = trim_data(csvFile, 10, 10)
 
     desired_data_pivot = pivot_data(desired_data)
 
@@ -130,7 +129,7 @@ if __name__ == "__main__":
     Threshold4 = 0.16
 
     if should_i_print_everything:
-     #   print()
+        # print()
         print("DATA")
         print_table(desired_data)
         print("GAMMA TP9 AVERAGE")
@@ -160,7 +159,9 @@ if __name__ == "__main__":
         print()
         print()
     if (Gamma_TP9 > Threshold1) and (Beta_TP10 <= Threshold4):
-        print("User is perceived happy; save video recording")
+        print("User is perceived happy; playing video recording")
+        return 1
 
     if (Gamma_AF7 > Threshold2) and (Beta_AF7 > Threshold3):
-        print("User is perceived sad; delete video recording and trigger randomized motivational quote or old saved memory")
+        print("Don't be sad, here's one of your motivational quotes")
+        return 0

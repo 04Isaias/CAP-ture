@@ -4,6 +4,7 @@ from pathlib import Path  # Necessary for determining if a file is in the direct
 import playVideo  # Necessary for video playback
 from quotes import Quotes  # Necessary for getting quotes
 from Bluetooth_Serial_Communication import record
+from threshold_calculator import call
 
 
 class Users:
@@ -85,14 +86,26 @@ class Users:
     def delQuote(self, index):  # Delete a quote from the quote list given an index
         self.quotes.delQuote(index)
 
+    def isHappy(self, videoFile, csvFile):
+        if self.csvFileExist(csvFile):
+            if call(csvFile):
+                self.playVideo(videoFile)
+            else:
+                self.getQuote()
+
     @staticmethod
     def recordVid():
         record()
 
 
 # Code for debugging purposes
-Andrew = Users()  # Creating User "Andrew" and putting 2 files in his account
-Andrew.setName("Andrew")
+Mom = Users()  # Creating User "Andrew" and putting 2 files in his account
+Mom.setName("LJ\'s mom")
+Mom.setCSVFile("MomHappy1.csv")
+Mom.setCSVFile("MomSad1.csv")
+Mom.setCSVFile("MomNeutral1.csv")
+Mom.setVideoFile("test.mp4")
+Mom.isHappy("test.mp4", "MomNeutral1.csv")
 # Andrew.setVideoFile("test.mp4")
 # Andrew.setVideoFile("test2.mp6")
 #
